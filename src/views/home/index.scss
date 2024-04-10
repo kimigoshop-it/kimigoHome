@@ -1,0 +1,20 @@
+.home {
+  .van-nav-bar__content {
+    background: #ff4500;
+  }
+}
+
+.searchInput {
+  height: 1.7rem;
+  border-radius: 10px;
+}
+
+.van-nav-bar__title {
+  max-width: 70%;
+  width: 80%;
+}
+
+.view {
+  width: 100vw;
+  height: calc(100vh - 72px);
+}
