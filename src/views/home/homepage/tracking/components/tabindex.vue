@@ -2,7 +2,7 @@
     <div class="box">
         <div v-for="item in tablist" :key="item.id" @click="clickactive(item)" :class="active === item.id ? 'checked' : ''">
             <div class="aa"></div>
-            <p>{{ item.name }}<span>({{ item.num }})</span></p>
+            <p>{{$t('home.track.tab_'+item.id)}}<span>({{ item.num }})</span></p>
             <img :src="amplifying" alt="">
         </div>
     </div>
@@ -12,6 +12,9 @@ import { ref, defineProps, watch, defineEmits } from "vue";
 import amplifying from "@/assets/image/amplifying.png";
 import BusClass from '@/utils/eventBus'
 import { QueryOfficialWebsiteCustomerOrderCount } from '@/service';
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const props = defineProps({
     val: {

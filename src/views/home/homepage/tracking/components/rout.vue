@@ -2,21 +2,21 @@
     <div class="w">
         <div>
             <svg-icon name="maorigin" width="1.125rem" height="1.25rem" />
-            当前位置：<p @click="routeclick">首页</p> &nbsp;>&nbsp;
-            <span>单号追踪</span>
+            {{$t('home.current_location')}}<p @click="routeclick">{{$t('home.home')}}</p> &nbsp;>&nbsp;
+            <span>{{$t('home.order_track')}}</span>
             <img :src="kache" alt="">
         </div>
         <div>
             <n-input :allow-input="noSideSpace" v-model:value="officialWebsiteOrders" clearable
                 :onafterpaste="officialWebsiteOrders = officialWebsiteOrders.replace(/，/g, ',')"
                 :οnkeyup="officialWebsiteOrders = officialWebsiteOrders.replace(/，/g, ',')"
-                placeholder="请输入查询单号，一次最多输入30条，用逗号隔开" @keydown.enter="cliSearch">
+                :placeholder @keydown.enter="cliSearch">
                 <template #suffix>
                     <n-button type="info" @click="cliSearch" color="#606AFF" :disabled="!officialWebsiteOrders">
                         <div :style="`transform: translateX(${left + 'px'
                             }) translateY(${-left + 'px'});`" style="transition: all .5s;">
                             <svg-icon name="search" width="1.375rem" height="1.375rem" />
-                            查询
+                            {{$t('home.query')}}
                         </div>
                     </n-button>
                 </template>
@@ -30,6 +30,9 @@ import kache from '@/assets/image/kache.png'
 import { useRouter } from 'vue-router';
 import BusClass from '@/utils/eventBus'
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const props = defineProps({
     val: {
         type: String as any,
@@ -40,6 +43,7 @@ const props = defineProps({
 const router = useRouter();
 const officialWebsiteOrders = ref('') as any
 let left = ref(0)
+let placeholder = t('home.placeholder')
 
 const cliSearch = async () => {
     if (officialWebsiteOrders) {

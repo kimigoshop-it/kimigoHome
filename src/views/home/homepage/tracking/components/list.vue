@@ -8,7 +8,7 @@
     </div>
     <div v-if="!state" class="nosearchsty">
       <img :src="nosearch" alt="" />
-      <p>小k找不到对应信息</p>
+      <p>{{ $t('home.nosearchsty') }}</p>
     </div>
     <div class="guiji" v-else v-for="(item, index) in lists.data" :key="index">
       <div
@@ -20,13 +20,13 @@
         <div class="childone">
           <div><span></span>{{ item.kyInStorageNumber }}</div>
           <div>
-            <span>义乌</span>
+            <span>{{ $t('home.ky_in_storage') }}</span>
             <svg-icon
               name="arrowhead"
               width="3.625rem"
               height=".5rem"
               style="margin: 0 1.25rem"
-            /><span>哈萨克斯坦</span>
+            /><span>{{ $t('home.terminal_in_storage') }}</span>
           </div>
         </div>
         <div class="childtwo">
@@ -42,7 +42,7 @@
                 background: linear-gradient(270deg, #faad14 0%, #ff7300 97%);
               "
             >
-              已取件
+              {{ $t('home.track.picked_up') }}
             </n-button>
             <span
               :style="{ opacity: item.officialWebsiteOrder === 4 ? '1' : '0' }"
@@ -73,8 +73,9 @@
               ) in item.officialWebsiteRoutingEntities"
               :key="childitema"
             >
-              <n-button secondary type="warning"
-                >{{ options[childitema.officialWebsiteOrderStatus].label }}
+              <n-button secondary type="warning">
+                <!-- {{ options[childitema.officialWebsiteOrderStatus].label }} -->
+                {{$t('home.track.options_type_'+options[childitema.officialWebsiteOrderStatus].value) }}
               </n-button>
               <div class="rightsty">
                 <div
@@ -155,8 +156,10 @@
                     />
                   </div>
                   <div class="particulars">
-                    <div>{{ childite.customerRoutingNodeChineseName }}</div>
-                    <span>{{ childite.updateTime }}</span>
+                    <div v-if="lang==0">{{ childite.customerRoutingNodeChineseName }}</div>
+                    <div v-if="lang==1">{{ childite.customerRoutingNodeRussiaName }}</div>
+                    <div v-if="lang==2">{{ childite.customerRoutingNodeKazakhstanName }}</div>
+                    <span>{{ childite.operateDatetime }}</span>
                   </div>
                 </div>
               </div>
@@ -168,7 +171,7 @@
     <div class="doottit" v-if="state">
       <div>
         <div></div>
-        <span>已经到底啦</span>
+        <span>{{$t('home.track.no_more')}}</span>
         <div></div>
       </div>
     </div>
@@ -180,6 +183,16 @@ import { QueryOfficialWebsiteCustomerOrderDetail } from "@/service";
 import BusClass from "@/utils/eventBus";
 import nosearch from "@/assets/image/gis/nosearch.png";
 import dottedline from "@/assets/image/gis/dottedline.png";
+
+import { useAppStore } from "~/src/store/app";
+const app = useAppStore();
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
+const lang = computed(() => {
+  return app.lang
+})
 
 const props = defineProps({
   val: {
@@ -247,7 +260,7 @@ BusClass.on("on-tabclick", async (flag: number, val: string) => {
 const getdata = async (strval: string, val?: number) => {
   const loading = proxy?.$loading({
     lock: true,
-    text: "查询中...",
+    text: t('home.track.tnquiring'),
     background: "rgba(0, 0, 0, 0.9)",
   });
   const { data } = await QueryOfficialWebsiteCustomerOrderDetail({
@@ -264,8 +277,9 @@ const getdata = async (strval: string, val?: number) => {
           officialWebsiteOrderStatus: 0,
           customerOrderRoutingEntities: [
             {
-              customerRoutingNodeChineseName: "客户下单成功",
-              updateTime: item.orderTime,
+              customerRoutingNodeChineseName: t('home.track.order_was_success'),
+              customerRoutingNodeRussiaName: t('home.track.order_was_success'),
+              customerRoutingNodeKazakhstanName: t('home.track.order_was_success'),
             },
           ],
         });
@@ -281,8 +295,10 @@ const getdata = async (strval: string, val?: number) => {
             officialWebsiteOrderStatus: item.officialWebsiteOrder,
             customerOrderRoutingEntities: [
               {
-                customerRoutingNodeChineseName: "客户已拒收",
-                updateTime: item.rejectDatetime,
+                customerRoutingNodeChineseName: t('home.track.order_was_rejected'),
+                customerRoutingNodeRussiaName: t('home.track.order_was_rejected'),
+                customerRoutingNodeKazakhstanName: t('home.track.order_was_rejected'),
+                operateDatetime: item.rejectDatetime,
               },
             ],
           });
@@ -294,8 +310,10 @@ const getdata = async (strval: string, val?: number) => {
             officialWebsiteOrderStatus: item.officialWebsiteOrder,
             customerOrderRoutingEntities: [
               {
-                customerRoutingNodeChineseName: "客户已取消",
-                updateTime: item.cancelTime,
+                customerRoutingNodeChineseName: t('home.track.order_was_cancelled'),
+                customerRoutingNodeRussiaName: t('home.track.order_was_cancelled'),
+                customerRoutingNodeKazakhstanName: t('home.track.order_was_cancelled'),
+                operateDatetime: item.cancelTime,
               },
             ],
           });
