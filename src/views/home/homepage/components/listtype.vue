@@ -29,11 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
 import transport1 from "@/assets/image/transport1.png";
 import transport2 from "@/assets/image/transport2.png";
 import transport3 from "@/assets/image/transport3.png";
 import transport4 from "@/assets/image/transport4.png";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -229,17 +229,29 @@ const listinput = computed(() => {
 }
 
 @media (max-width: 999px) {
+    .detailbox {
+        padding: 8.75rem 1.5rem 3.75rem;
+    }
+
     .detailbox .listbox .flexbox {
         width: 100%;
         display: grid;
         grid-template-columns: auto 1fr;
     }
 
-    .detailbox .listbox {
-        width: fit-content;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+    .detailbox .backlogo {
+        height: fit-content;
     }
+
+    .detailbox .backlogo span {
+        text-align: center;
+    }
+
+    // .detailbox .listbox {
+    //     width: fit-content;
+    //     padding-left: 1.5rem;
+    //     padding-right: 1.5rem;
+    // }
 
     // .detailbox .listbox .flexbox > .iconback {
     //     width: 2.75rem;

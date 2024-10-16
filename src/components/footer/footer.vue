@@ -48,13 +48,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, reactive } from "vue";
+import ewm from "@/assets/image/ewm.png";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRoute, useRouter } from "vue-router";
+import { useAppStore } from "~/src/store/app";
 import hatit from "./image/hatit.png";
 import logoTitle from "./image/logoTitle.png";
-import ewm from "@/assets/image/ewm.png";
-import { useI18n } from "vue-i18n";
-import { useAppStore } from "~/src/store/app";
-import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const app = useAppStore();
@@ -187,6 +187,9 @@ const skipincident = (path: any) => {
 }
 
 @media (max-width: 999px) {
+    .fotter {
+        overflow: hidden;
+    }
     .fotter .fotterContent {
         width: 100%;
         padding: 0px;

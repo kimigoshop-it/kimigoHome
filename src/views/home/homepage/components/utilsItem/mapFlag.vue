@@ -65,11 +65,11 @@
 </template>
 
 <script setup lang="ts">
+import { useIntersection } from "@/hooks/scooll.ts";
+import { ref } from "vue";
 import CountUp from "vue-countup-v3";
 import { useI18n } from "vue-i18n";
-import { ref, onMounted } from "vue";
 const { t } = useI18n();
-import { useIntersection } from "@/hooks/scooll.ts";
 
 const mapFlag = ref(null);
 let isShow = ref(false);
@@ -258,8 +258,10 @@ watch(isIntersecting, (newValue, oldValue) => {
 
     .map .content .topTitle .left {
         margin-right: 0px;
-        width: 100%;
+        width: calc(100% - 3rem);
         text-align: center;
+        height: fit-content;
+        white-space: wrap;
     }
 
     .map .content .fjhclc {
