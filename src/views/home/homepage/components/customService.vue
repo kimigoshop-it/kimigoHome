@@ -631,7 +631,6 @@ import mapFlag from "./utilsItem/mapFlag.vue";
     .bktZj .ysfw .items {
         justify-content: flex-start;
 
-        width: 100vw;
         padding-left: 0px !important;
         padding-right: 0px !important;
         overflow-y: hidden;

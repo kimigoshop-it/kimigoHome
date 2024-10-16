@@ -205,7 +205,28 @@ a:focus {
     }
 
     header .routesty > div:nth-child(1) {
-        display: none;
+        // display: none;
+        padding: 0.75rem 0;
+        margin-right: 0;
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        left: 50%;
+        bottom: 1.5rem;
+        transform: translateX(-50%);
+        background-color: hsla(0, 0%, 100%, 0.9);
+        backdrop-filter: saturate(60%) blur(20px);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+        width: calc(100% - 3rem);
+    }
+
+    header .routesty > div:nth-child(1) > a {
+        margin-left: 0;
+        padding-bottom: 0;
+        white-space: nowrap;
     }
 
     header .routesty {
