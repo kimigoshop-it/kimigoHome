@@ -225,6 +225,10 @@ a:focus {
     right: -250px;
 }
 
+.menu-wrapper {
+    display: none;
+}
+
 @media (max-width: 999px) {
     .headers {
         height: 72px;
