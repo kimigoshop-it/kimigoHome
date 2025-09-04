@@ -1,6 +1,6 @@
 /** @format */
 
-// zh.ts 中文文件内容
+// rs.ts 俄语
 
 export default {
   home: {
@@ -56,9 +56,10 @@ export default {
       exclusive: "Личный",
       allweather: "Всепогодный",
       accurate: "Точный",
-      logistics: "欧亚跨境物流综合服务商",
+      logistics: "Евразийский поставщик интегрированных услуг в области трансграничной логистики",
       websitehomepage: "Домашняя страница",
       waysofresolution: "Решение",
+      privacyPolicy: "Соглашение о конфиденциальности",
       site: "Комната 305-3, корпус 1, улица Датун № 7, зона высоких технологий, город Сучжоу",
       plu: "Запрос цены",
       chooseTheCountry: "Страна",
@@ -89,7 +90,7 @@ export default {
       rejected:'Клиенты отказались принять',
       cancelled:'Клиент отменил',
       picked_up:'Взял',
-  
+
       tab_1:'все',
       tab_2:'Плюс',
       tab_3:'полученный',
@@ -98,7 +99,7 @@ export default {
       tab_6:'Взял',
       tab_7:'Отменен',
       tab_8:'Мусор',
-  
+
       options_type_0:'Плюс',
       options_type_1:'полученный',
       options_type_2:'в пути',

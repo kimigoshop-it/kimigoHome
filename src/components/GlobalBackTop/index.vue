@@ -1,5 +1,5 @@
 <template>
-    <n-back-top :show="show" class="z-1000 customer-back-top" />
+  <n-back-top :show="show" class="z-1000" />
 </template>
 
 <script lang="ts" setup>

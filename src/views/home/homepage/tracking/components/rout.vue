@@ -9,25 +9,10 @@
             <img :src="kache" alt="" />
         </div>
         <div>
-            <n-input
-                :allow-input="noSideSpace"
-                v-model:value="officialWebsiteOrders"
-                clearable
-                :onafterpaste="
-                    (officialWebsiteOrders = officialWebsiteOrders.replace(
-                        /，/g,
-                        ','
-                    ))
-                "
-                :οnkeyup="
-                    (officialWebsiteOrders = officialWebsiteOrders.replace(
-                        /，/g,
-                        ','
-                    ))
-                "
-                :placeholder
-                @keydown.enter="cliSearch"
-            >
+            <n-input :allow-input="noSideSpace" v-model:value="officialWebsiteOrders" clearable
+                :onafterpaste="officialWebsiteOrders = officialWebsiteOrders.replace(/，/g, ',')"
+                :οnkeyup="officialWebsiteOrders = officialWebsiteOrders.replace(/，/g, ',')"
+                 @keydown.enter="cliSearch">
                 <template #suffix>
                     <n-button
                         type="info"

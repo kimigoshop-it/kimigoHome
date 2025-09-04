@@ -1,8 +1,8 @@
 <template>
-    <div class="back">
-        <img :src="lang === 0 ? titchina : titha" alt="" />
-        <houselist />
-    </div>
+  <div class="back">
+    <img :src="lang === 0 ? titchina : lang === 1 ? titha : lang === 3 ? titmn : titen" alt="">
+    <houselist />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -15,42 +15,36 @@ const app = useAppStore();
 import houselist from "./houselist.vue";
 import titchina from "@/assets/image/titchina.png";
 import titha from "@/assets/image/titha.png";
+import titen from "@/assets/image/enTitle.png";
+import titmn from "@/assets/image/mnTitle.png";
 
 const lang = computed(() => {
-    return app.lang;
-});
+  return app.lang
+})
+
 </script>
 
 <style lang="scss" scoped>
 .border {
-    border: none !important;
+  border: none !important;
 }
 
 .back {
-    box-sizing: border-box;
-    width: 100%;
-    height: 29.6875rem;
-    display: flex;
-    align-items: center;
-    background-size: 100% 100%;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    background: url("@/assets/image/banner.png");
-    background-size: cover;
+  box-sizing: border-box;
+  width: 100%;
+  height: 29.6875rem;
+  display: flex;
+  align-items: center;
+  background-size: 100% 100%;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background: url('@/assets/image/banner.png');
+  background-size: cover;
 
-    > img {
-        width: 60rem;
-        height: 14.3125rem;
-    }
-}
-
-@media (max-width: 999px) {
-    .back {
-        > img {
-            width: 100%;
-            height: fit-content;
-        }
-    }
+  >img {
+    width: 60rem;
+    height: 14.3125rem;
+  }
 }
 </style>
