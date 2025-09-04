@@ -8,19 +8,23 @@
           <img src="@/assets/logo.png" alt="" srcset="" />
         </div>
         <div class="logoTitle">
-          <img
+          <span>{{ $t('home.pickup.titcontent') }}</span>
+          <!-- <img
             :src="lang === 0 ? logoTitle : hatit"
             alt=""
             srcset=""
-            :style="{ width: lang === 0 ? '181px' : '769px' }"
-          />
+            :style="{ width: lang === 0 ? '181px' :  '769px'}"
+          /> -->
         </div>
       </div>
       <div style="display: flex; justify-content: space-between">
         <div>
           <div class="items" v-for="item in routerdata" :key="item.id">
             <div class="item">
-              <div class="left" @click="skipincident(item.path)">
+              <div class="left" @click="skipincident(item.path)" v-if="!item.isurl">
+                {{ item.name }}
+              </div>
+              <div class="left" @click="goUrl(item.path)" v-else>
                 {{ item.name }}
               </div>
               <div class="right">
@@ -42,6 +46,8 @@
 import { computed, onMounted, ref, reactive } from "vue";
 import hatit from "./image/hatit.png";
 import logoTitle from "./image/logoTitle.png";
+import enTitle from "./image/enTitle.png";
+import mnTitle from "./image/mnTitle.png";
 import ewm from "@/assets/image/ewm.png";
 import { useI18n } from "vue-i18n";
 import { useAppStore } from "~/src/store/app";
@@ -77,6 +83,12 @@ const routerdata = computed(() => {
       name: t("home.pickup.aboutus"),
       id: 2,
     },
+    {
+      path: "#gywm",
+      isurl:true,
+      name: t("home.pickup.privacyPolicy"),
+      id: 3,
+    },
   ];
 });
 
@@ -87,12 +99,18 @@ const skipincident = (path: any) => {
     hash: path,
   });
 };
+
+const goUrl = () => {
+  router.push({
+    path: `/home/index/privacyPolicy`
+  });
+}
 </script>
 
 <style lang="scss" scoped>
 .fotter {
   width: 100%;
-  height: 17.4rem;
+  height: 22.4rem;
   background: #272727;
   .ewm {
     img {
@@ -116,7 +134,8 @@ const skipincident = (path: any) => {
         display: flex;
         flex-wrap: wrap;
         align-content: center;
-
+        color: white;
+        font-size: 1.55rem;
         img {
           height: 21px;
           margin-bottom: 10px;

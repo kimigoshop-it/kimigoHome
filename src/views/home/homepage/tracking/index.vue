@@ -4,9 +4,9 @@
             <Rout :val="route.query.val" />
         </div>
         <main>
-            <div class="w tabsty">
+            <!-- <div class="w tabsty">
                 <TabList :val="route.query.val" />
-            </div>
+            </div> -->
             <div class="w aaa">
                 <List :val="route.query.val" />
             </div>

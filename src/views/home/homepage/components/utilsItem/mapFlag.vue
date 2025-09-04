@@ -28,7 +28,7 @@
       <div class="contentLeft">
         <div class="top">
           <div class="item1" v-if="isShow">
-            <count-up :end-val="4"></count-up>大
+            <count-up :end-val="4"></count-up>+
           </div>
           <div class="item1" v-else>xxx</div>
           <div class="item2">{{ t("home.pickup.warehouse") }}</div>

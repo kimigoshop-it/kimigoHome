@@ -42,6 +42,8 @@ const options = ref([
   { name: "简体中文", id: 0 },
   { name: "哈文", id: 1 },
   { name: "俄语", id: 2 },
+  { name: "蒙古语", id: 3 },
+  { name: "英语", id: 4}
 ]);
 const routerdata = computed(() => {
   return [

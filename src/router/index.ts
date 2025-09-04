@@ -31,6 +31,10 @@ const routes: Array<RouteRecordRaw> = [
         path: "/home/index/tracking",
         name: "单号追踪",
         component: () => import("@/views/home/homepage/tracking/index.vue"),
+      }, {
+        path: "/home/index/privacyPolicy",
+        name: "隐私协议",
+        component: () => import("@/views/home/homepage/privacyPolicy/index.vue"),
       },
     ],
   },

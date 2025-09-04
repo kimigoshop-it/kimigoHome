@@ -2,197 +2,82 @@
 
 <template>
   <div class="boxconten">
-    <div class="w warningsty" v-if="lists.remark !== null">
-      <svg-icon name="exclamation-circle" />
-      <p>{{ lists.remark }}</p>
+    <div class="w warningsty" v-if="remarkRef">
+    <svg-icon name="exclamation-circle"/>
+    <p>{{ remarkRef }}</p>
     </div>
     <div v-if="!state" class="nosearchsty">
-      <img :src="nosearch" alt="" />
+      <img :src="nosearch" alt=""/>
       <p>{{ $t('home.nosearchsty') }}</p>
     </div>
-    <div class="guiji" v-else v-for="(item, index) in lists.data" :key="index">
-      <div
-        class="toptit"
-        :style="{ borderBottom: !item.show ? '' : '.0625rem solid #e7e7e7' }"
-        @click="unfoldclick(index)"
-      >
-        <div class="postion"></div>
-        <div class="childone">
-          <div><span></span>{{ item.kyInStorageNumber }}</div>
-          <div>
-            <span>{{ $t('home.ky_in_storage') }}</span>
-            <svg-icon
-              name="arrowhead"
-              width="3.625rem"
-              height=".5rem"
-              style="margin: 0 1.25rem"
-            /><span>{{ $t('home.terminal_in_storage') }}</span>
-          </div>
-        </div>
-        <div class="childtwo">
-          <div>
-            <n-button
-              :style="{ opacity: item.officialWebsiteOrder === 4 ? '1' : '0' }"
-              strong
-              secondary
-              type="warning"
-              size="small"
-              color="#fff"
-              style="
-                background: linear-gradient(270deg, #faad14 0%, #ff7300 97%);
-              "
-            >
-              {{ $t('home.track.picked_up') }}
-            </n-button>
-            <span
-              :style="{ opacity: item.officialWebsiteOrder === 4 ? '1' : '0' }"
-              >{{ item.pickUpDatetime }}</span
-            >
-          </div>
-          <div :class="[item.show ? 'go' : 'aa']">
-            <svg-icon name="doubleright1" />
-          </div>
-        </div>
-      </div>
-      <div
-        class="boxtrins"
-        :style="{
-          height: !item.show ? '0px' : '22.5rem',
-          transition: 'all .5s',
-        }"
-      >
-        <div>
-          <img :src="item.officialWebsiteUrl" />
-        </div>
-        <div>
-          <n-scrollbar style="max-height: 306px">
-            <div
-              class="statesty"
-              v-for="(
-                childitema, indexitem
-              ) in item.officialWebsiteRoutingEntities"
-              :key="childitema"
-            >
-              <n-button secondary type="warning">
-                <!-- {{ options[childitema.officialWebsiteOrderStatus].label }} -->
-                {{$t('home.track.options_type_'+options[childitema.officialWebsiteOrderStatus].value) }}
-              </n-button>
-              <div class="rightsty">
-                <div
-                  class="rightlist"
-                  v-for="(
-                    childite, index
-                  ) in childitema.customerOrderRoutingEntities"
-                  :key="childite"
-                >
-                  <div class="iconsty">
-                    <!-- 经过 -->
-                    <svg-icon
-                      :name="`goby4`"
-                      style="width: 20px; height: 20px; left: 10px; top: 10px"
-                      v-if="index !== 0"
-                    />
-                    <!-- 已过大图标 -->
-                    <svg-icon
-                      :name="`goby0`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="
-                        index === 0 &&
-                        childitema.officialWebsiteOrderStatus === 0
-                      "
-                    />
-                    <svg-icon
-                      :name="`goby1`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="
-                        index === 0 &&
-                        childitema.officialWebsiteOrderStatus === 1
-                      "
-                    />
-                    <svg-icon
-                      :name="`goby2`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="
-                        index === 0 &&
-                        childitema.officialWebsiteOrderStatus === 2
-                      "
-                    />
-                    <svg-icon
-                      :name="`goby3`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="
-                        index === 0 &&
-                        childitema.officialWebsiteOrderStatus === 3
-                      "
-                    />
-                    <!-- 最后一个高亮 -->
-                    <svg-icon
-                      :name="`highlight${childitema.officialWebsiteOrderStatus}`"
-                      v-if="index === 0 && indexitem === 0"
-                      style="width: 2.625rem; height: 2.625rem"
-                    />
-                    <!-- 已拒收 -->
-                    <svg-icon
-                      :name="`highlight6`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="childitema.officialWebsiteOrderStatus === 7"
-                    />
-                    <!-- 已取消 -->
-                    <svg-icon
-                      :name="`highlight5`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="childitema.officialWebsiteOrderStatus === 6"
-                    />
-                    <!-- 已取件 -->
-                    <svg-icon
-                      :name="`highlight4`"
-                      style="width: 2.625rem; height: 2.625rem"
-                      v-if="childitema.officialWebsiteOrderStatus === 4"
-                    />
-                    <img
-                      :src="dottedline"
-                      alt=""
-                      v-if="childitema.officialWebsiteOrderStatus !== 0"
-                    />
-                  </div>
-                  <div class="particulars">
-                    <div v-if="lang==0">{{ childite.customerRoutingNodeChineseName }}</div>
-                    <div v-if="lang==1">{{ childite.customerRoutingNodeRussiaName }}</div>
-                    <div v-if="lang==2">{{ childite.customerRoutingNodeKazakhstanName }}</div>
-                    <span>{{ childite.operateDatetime }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </n-scrollbar>
-        </div>
-      </div>
-    </div>
+    <guijim ref="guijimRef" :val="inputValue" v-if="inputValue && inputValue.startsWith('KR')" @updateListVueState="handleZUpdateState" @updateRemark="handleRemark"></guijim>
+    <guiji ref="guijiRef" :val="inputValue" v-if="inputValue && !inputValue.startsWith('KR')" @updateListVueState="handleNiUpdateState" @updateRemark="handleRemark"></guiji>
     <div class="doottit" v-if="state">
       <div>
         <div></div>
-        <span>{{$t('home.track.no_more')}}</span>
+        <span>{{ $t('home.track.no_more') }}</span>
         <div></div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, getCurrentInstance, watch } from "vue";
-import { QueryOfficialWebsiteCustomerOrderDetail } from "@/service";
+import {ref, reactive, getCurrentInstance, watch} from "vue";
+import {QueryOfficialWebsiteCustomerOrderDetail} from "@/service";
 import BusClass from "@/utils/eventBus";
 import nosearch from "@/assets/image/gis/nosearch.png";
 import dottedline from "@/assets/image/gis/dottedline.png";
-
-import { useAppStore } from "~/src/store/app";
+import guiji from "@/views/home/homepage/tracking/components/guiji.vue";
+import guijim from "@/views/home/homepage/tracking/components/guijim.vue";
+import {useAppStore} from "~/src/store/app";
+import {useI18n} from "vue-i18n";
+import LanguageChange from "~/src/components/lang/LanguageChange.vue";
+import { LanguageServiceMode } from "typescript";
+import { useRouter, useRoute } from "vue-router";
 const app = useAppStore();
 
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+const {t} = useI18n();
+const lang = computed(() => app.lang); // 获取当前语言
+const router = useRouter(); // 获取路由实例
+const route = useRoute(); // 获取当前路由
 
-const lang = computed(() => {
-  return app.lang
-})
+
+const langstring = (() => {
+  switch (lang.value) {
+    case 0:
+      return "001";//中文
+    case 1:
+      return "003";//俄文
+    case 2:
+      return "004";//哈文
+    case 3:
+      return "005";//MN文
+    case 4:
+      return "002";//英文
+    default:
+      return "unknown"; // 默认值
+  }
+})();
+
+console.log("打印文类====",langstring);
+
+// 处理回传的数据
+const handleZUpdateState = (data: any) => {
+  console.log("接收到 guijim 的数据：", data);
+  state.value = data;
+};
+const handleRemark = (remark: any) => {
+  console.log("接收到 guijim  remark 的数据：", remark);
+  remarkRef.value = remark;
+  // 在这里处理回传的数据，例如更新列表
+};
+
+// 处理回传的数据
+const handleNiUpdateState = (data: any) => {
+  console.log("接收到 guijim 的数据：", data);
+  state.value = data;
+  // 在这里处理回传的数据，例如更新列表
+};
 
 const props = defineProps({
   val: {
@@ -241,104 +126,59 @@ const unfoldclick = (index: number) => {
 };
 const state = ref(false);
 const lists = ref([]) as any;
+let remarkRef = ref("");
+const inputValue = ref(""); // 输入框绑定的值
+// 初始化 inputValue
+// 修改初始化 inputValue 的逻辑，确保始终是字符串
+const inputQuery = route.query.input;
+inputValue.value = typeof inputQuery === 'string' ? inputQuery : (inputQuery?.[0] || "");
+
+
+const guijiRef = ref<InstanceType<typeof guiji> | null>(null);
+const guijimRef = ref<InstanceType<typeof guijim> | null>(null);
+
 //搜索按钮点击事件
 BusClass.on("on-click", async (flag: string) => {
-  getdata(flag, tabdata.value);
+  //判断输入内容是否以“KR”开头
+  console.log("flag======",flag);
+  if(flag.startsWith('KR')){
+    guijimRef.value?.getdata(flag);
+  } else {
+    guijiRef.value?.getdata(flag);
+  }
+  inputValue.value = flag;   
+  console.log("BusClass.on======");
+  // getdata(flag, tabdata.value);
 });
-const getList = () => {
-  const arr = [
-    { age: 16, name: "张三" },
-    { age: 18, name: "李四" },
-  ];
-  // 输出  arr=【{age:18,name:'李四'}】 撤了好
-};
-//tab点击事件
-BusClass.on("on-tabclick", async (flag: number, val: string) => {
-  getdata(val, flag);
-  tabdata.value = flag;
-});
-const getdata = async (strval: string, val?: number) => {
-  const loading = proxy?.$loading({
-    lock: true,
-    text: t('home.track.tnquiring'),
-    background: "rgba(0, 0, 0, 0.9)",
-  });
-  const { data } = await QueryOfficialWebsiteCustomerOrderDetail({
-    officialWebsiteOrders: strval,
-    pageIndex: 1,
-    pageSize: 30,
-    officialWebsiteSearchStatus: val,
-  });
-  setTimeout(() => {
-    if (data.data.data) {
-      state.value = true;
-      data.data.data.forEach((item: any) => {
-        item.officialWebsiteRoutingEntities.push({
-          officialWebsiteOrderStatus: 0,
-          customerOrderRoutingEntities: [
-            {
-              customerRoutingNodeChineseName: t('home.track.order_was_success'),
-              customerRoutingNodeRussiaName: t('home.track.order_was_success'),
-              customerRoutingNodeKazakhstanName: t('home.track.order_was_success'),
-            },
-          ],
-        });
-        if (item.officialWebsiteOrder === 5) {
-          item.officialWebsiteUrl =
-            "https://newkybuket.oss-cn-hangzhou.aliyuncs.com/exampledir/国内仓-1697472000.png";
-        }
-        //拒收
-        if (item.officialWebsiteOrder === 7) {
-          item.officialWebsiteUrl =
-            "https://newkybuket.oss-cn-hangzhou.aliyuncs.com/exampledir/包裹店-1697472000.png";
-          item.officialWebsiteRoutingEntities.unshift({
-            officialWebsiteOrderStatus: item.officialWebsiteOrder,
-            customerOrderRoutingEntities: [
-              {
-                customerRoutingNodeChineseName: t('home.track.order_was_rejected'),
-                customerRoutingNodeRussiaName: t('home.track.order_was_rejected'),
-                customerRoutingNodeKazakhstanName: t('home.track.order_was_rejected'),
-                operateDatetime: item.rejectDatetime,
-              },
-            ],
-          });
-        } else if (item.officialWebsiteOrder === 6) {
-          //取消
-          item.officialWebsiteUrl =
-            "https://newkybuket.oss-cn-hangzhou.aliyuncs.com/exampledir/国内仓-1697472000.png";
-          item.officialWebsiteRoutingEntities.unshift({
-            officialWebsiteOrderStatus: item.officialWebsiteOrder,
-            customerOrderRoutingEntities: [
-              {
-                customerRoutingNodeChineseName: t('home.track.order_was_cancelled'),
-                customerRoutingNodeRussiaName: t('home.track.order_was_cancelled'),
-                customerRoutingNodeKazakhstanName: t('home.track.order_was_cancelled'),
-                operateDatetime: item.cancelTime,
-              },
-            ],
-          });
-        }
-        item.show = false;
-      });
-      //默认已下单数据
-      lists.value = data.data;
-      lists.value.data[0].show = true;
-    } else {
-      lists.value = data.data;
-      state.value = false;
-    }
-    console.log(data.data.data);
-    loading.close();
-  }, 300);
-};
 
 watch(
-  () => props.val,
-  (val) => {
-    getdata(val);
-  },
-  { immediate: true }
+    () => props.val,
+    (val) => {
+      inputValue.value = val;
+    },
+    {immediate: true}
 );
+
+// 监听输入框内容的变化
+watch(
+  () => inputValue.value,
+  (newValue, oldValue) => {
+    console.log("输入框内容变化：", oldValue, "=>", newValue);
+    // 在这里处理输入框内容变化的逻辑
+    if(newValue.startsWith('KR')){
+      guijimRef.value?.getdata(newValue);
+    } else {
+      guijiRef.value?.getdata(newValue);
+    }
+     // 更新地址栏参数
+     router.push({
+      path: router.currentRoute.value.path, // 保持当前路径
+      query: { ...router.currentRoute.value.query, val: newValue }, // 更新 query 参数
+    });
+    
+  }
+);
+
 </script>
 <style lang="scss" scoped>
 .boxconten {
@@ -414,7 +254,6 @@ watch(
 
 .guiji {
   border-radius: 0.75rem;
-  background: #ffffff;
   box-shadow: 0rem 0.0625rem 0.625rem 0rem rgba(0, 0, 0, 0.1);
   margin-top: 1rem;
 
@@ -478,7 +317,7 @@ watch(
 
     .childtwo {
       height: 5rem;
-      display: flex;
+      display: inline-flex;
 
       > :nth-child(1) {
         display: flex;
@@ -572,6 +411,7 @@ watch(
             > .particulars {
               display: flex;
               margin-left: 12px;
+              margin-top: 10px;
               font-feature-settings: "kern" on;
               font-family: Source Han Sans CN;
               flex-direction: column;
@@ -599,6 +439,8 @@ watch(
           font-feature-settings: "kern" on;
           color: #d99038;
           margin-top: 8px;
+          // text-wrap: wrap;
+          // width: 8rem;
           margin-right: 0.75rem;
         }
       }

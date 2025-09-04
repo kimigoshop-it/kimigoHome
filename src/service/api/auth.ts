@@ -33,3 +33,13 @@ export function QueryOfficialWebsiteCustomerOrderDetail(data: any) {
     data,
   });
 }
+
+//逆向轨迹查询
+export function QueryHomeIndexReturnOfficialCustomerOrderDetail(data: any) {
+  return mockRequest({
+    url: "/api/CustomerOrder/QueryHomeIndexReturnOfficialCustomerOrderDetail",
+    method: "post",
+    data,
+  });
+}
+

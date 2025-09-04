@@ -10,7 +10,7 @@
             <n-input :allow-input="noSideSpace" v-model:value="officialWebsiteOrders" clearable
                 :onafterpaste="officialWebsiteOrders = officialWebsiteOrders.replace(/，/g, ',')"
                 :οnkeyup="officialWebsiteOrders = officialWebsiteOrders.replace(/，/g, ',')"
-                :placeholder @keydown.enter="cliSearch">
+                 @keydown.enter="cliSearch">
                 <template #suffix>
                     <n-button type="info" @click="cliSearch" color="#606AFF" :disabled="!officialWebsiteOrders">
                         <div :style="`transform: translateX(${left + 'px'

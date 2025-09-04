@@ -1,6 +1,6 @@
 <template>
   <div class="back">
-    <img :src="lang === 0 ? titchina : titha" alt="">
+    <img :src="lang === 0 ? titchina : lang === 1 ? titha : lang === 3 ? titmn : titen" alt="">
     <houselist />
   </div>
 </template>
@@ -15,6 +15,8 @@ const app = useAppStore();
 import houselist from "./houselist.vue";
 import titchina from "@/assets/image/titchina.png";
 import titha from "@/assets/image/titha.png";
+import titen from "@/assets/image/enTitle.png";
+import titmn from "@/assets/image/mnTitle.png";
 
 const lang = computed(() => {
   return app.lang
